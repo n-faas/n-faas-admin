@@ -19,7 +19,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
     reverseHorizontalMix: false
   },
   page: {
-    animate: true,
+    animate: false,
     animateMode: 'fade-slide'
   },
   header: {

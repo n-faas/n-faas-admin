@@ -48,6 +48,7 @@ declare module "@elegant-router/types" {
     "function_super-page": "/function/super-page";
     "function_tab": "/function/tab";
     "function_toggle-auth": "/function/toggle-auth";
+    "functions": "/functions/:spaceid?";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
@@ -101,7 +102,7 @@ declare module "@elegant-router/types" {
 
   /**
    * custom route key
-   */ 
+   */
   export type CustomRouteKey = Extract<
     RouteKey,
     | "root"
@@ -123,7 +124,7 @@ declare module "@elegant-router/types" {
 
   /**
    * the generated route key
-   */ 
+   */
   export type GeneratedRouteKey = Exclude<RouteKey, CustomRouteKey>;
 
   /**
@@ -137,6 +138,7 @@ declare module "@elegant-router/types" {
     | "about"
     | "alova"
     | "function"
+    | "functions"
     | "home"
     | "iframe-page"
     | "login"
@@ -179,6 +181,7 @@ declare module "@elegant-router/types" {
     | "function_super-page"
     | "function_tab"
     | "function_toggle-auth"
+    | "functions"
     | "home"
     | "manage_menu"
     | "manage_role"

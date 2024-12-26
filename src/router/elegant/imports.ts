@@ -32,6 +32,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "function_super-page": () => import("@/views/function/super-page/index.vue"),
   function_tab: () => import("@/views/function/tab/index.vue"),
   "function_toggle-auth": () => import("@/views/function/toggle-auth/index.vue"),
+  functions: () => import("@/views/functions/[spaceid].vue"),
   home: () => import("@/views/home/index.vue"),
   manage_menu: () => import("@/views/manage/menu/index.vue"),
   manage_role: () => import("@/views/manage/role/index.vue"),

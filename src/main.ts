@@ -4,6 +4,7 @@ import { setupAppVersionNotification, setupDayjs, setupIconifyOffline, setupLoad
 import { setupStore } from './store';
 import { setupRouter } from './router';
 import { setupI18n } from './locales';
+
 import App from './App.vue';
 
 async function setupApp() {

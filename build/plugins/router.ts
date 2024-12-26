@@ -33,6 +33,9 @@ export function setupElegantRouter() {
 
         return `/login/:module(${moduleReg})?`;
       }
+      if (key === 'functions') {
+        return '/functions/:spaceid?';
+      }
 
       return routePath;
     },

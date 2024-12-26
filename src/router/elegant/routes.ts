@@ -214,6 +214,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'functions',
+    path: '/functions/:spaceid?',
+    component: 'layout.base$view.functions',
+    props: true,
+    meta: {
+      title: 'functions',
+      i18nKey: 'route.functions',
+      multiTab: false
+    }
+  },
+  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
