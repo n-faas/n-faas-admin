@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { NConfigProvider, darkTheme } from 'naive-ui';
 import type { WatermarkProps } from 'naive-ui';
 import { useAppStore } from './store/modules/app';
 import { useThemeStore } from './store/modules/theme';
 import { naiveDateLocales, naiveLocales } from './locales/naive';
-
+import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
+import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
+import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 defineOptions({
   name: 'App'
 });
@@ -38,6 +42,26 @@ const watermarkProps = computed<WatermarkProps>(() => {
     zIndex: 9999
   };
 });
+
+onMounted(() => {
+  self.MonacoEnvironment = {
+  getWorker(_: string, label: string) {
+    if (label === 'json') {
+      return new jsonWorker()
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return new cssWorker()
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return new htmlWorker()
+    }
+    if (['typescript', 'javascript'].includes(label)) {
+      return new tsWorker()
+      }
+      return new EditorWorker()
+    },
+  }
+})
 </script>
 
 <template>
