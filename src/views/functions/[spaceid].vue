@@ -1,12 +1,10 @@
 <script setup lang="tsx">
-import { Icon } from '@iconify/vue';
 import type { MenuOption } from 'naive-ui';
 import { useMessage } from 'naive-ui';
-import { h, ref } from 'vue';
-import { RouterLink, useRoute } from 'vue-router';
-import { useRouteQuery } from '@vueuse/router';
+import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
 import Editor from './modules/editor.vue';
-import { setupEditor,  useEditor } from './modules/useContext';
+import { setupEditor } from './modules/useContext.jsx';
 
 // interface Props {
 //   id?: string;
@@ -60,32 +58,32 @@ const transformJs = (list: any[]) => {
       label: item.functionName,
       // label: () => <RouterLink to={`/functions?functionName=${item.functionName}`}>{item.functionName}</RouterLink>,
       key: item.functionName,
-      // icon: () => (
-      //   <div>
-      //     <Icon icon="vscode-icons:file-type-typescript-official"></Icon>
-      //   </div>
-      // )
+      icon: () => (
+        <div>
+          <Icon icon="vscode-icons:file-type-typescript-official"></Icon>
+        </div>
+      )
     };
   });
 };
 
 const menuOptions: MenuOption[] = transformJs(functionList.value);
+const { editorStates, tabList, openFile, closeFile, activeFunctionId, getTabTitle } = setupEditor();
 
 const handleUpdateValue = (value: string) => {
-  console.log(1);
-  openFile(value,value,functionList.value.find(item => item.functionName === value)?.code || '');
-  console.log(2);
+  openFile(value, value, functionList.value.find(item => item.functionName === value)?.code || '');
 };
 
-
-const { editorStates,tabList,openFile,closeFile,activeFunctionId } = setupEditor();
+const handleUpdateValueTab = (value: string) => {
+  // console.log('handleUpdateValueTab', value);
+  openFile(value, value, functionList.value.find(item => item.functionName === value)?.code || '');
+};
 </script>
 
 <template>
   <div class="flex gap-4">
     <NCard class="flex-[0_0_200px]" content-class="!p-0" header-class="">
       <template #header>
-        activeFunctionId{{ activeFunctionId }}
         <span class="text-sm">函数列表</span>
       </template>
       <template #header-extra>
@@ -93,21 +91,30 @@ const { editorStates,tabList,openFile,closeFile,activeFunctionId } = setupEditor
           <icon-ic:baseline-plus />
         </ButtonIcon>
       </template>
-      <!-- <NMenu :options="menuOptions" :default-value="functionId" @update:value="handleUpdateValue" /> -->
-       <div v-for="item in menuOptions" :key="item.key" @click="handleUpdateValue(item.key)">
-        <!-- <div>
-          <Icon icon="vscode-icons:file-type-typescript-official"></Icon>
-        </div> -->
+      <NMenu :options="menuOptions" :default-value="activeFunctionId" @update:value="handleUpdateValue" />
+      <!--
+ <div v-for="item in menuOptions" :key="item.key" @click="() => handleUpdateValue(item.key)">
         <div>{{ item.label }}</div>
-       </div>
+      </div>
+-->
     </NCard>
     <NCard content-class="!p-0">
-      <NTabs v-model:value="activeFunctionId" type="card" closable tab-style="min-width: 80px;" @close="handleClose">
+      <NTabs
+        :value="activeFunctionId"
+        type="card"
+        closable
+        tab-style="min-width: 80px;"
+        @update:value="handleUpdateValueTab"
+        @close="handleClose"
+      >
         <NTabPane v-for="tab in tabList" :key="tab" :tab="tab" :name="tab">
+          <template #tab>
+            <component :is="getTabTitle(tab)" />
+          </template>
         </NTabPane>
       </NTabs>
       <div v-show="activeFunctionId">
-        <Editor  />
+        <Editor />
       </div>
     </NCard>
   </div>

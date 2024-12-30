@@ -44,23 +44,7 @@ const watermarkProps = computed<WatermarkProps>(() => {
 });
 
 onMounted(() => {
-  self.MonacoEnvironment = {
-  getWorker(_: string, label: string) {
-    if (label === 'json') {
-      return new jsonWorker()
-    }
-    if (label === 'css' || label === 'scss' || label === 'less') {
-      return new cssWorker()
-    }
-    if (label === 'html' || label === 'handlebars' || label === 'razor') {
-      return new htmlWorker()
-    }
-    if (['typescript', 'javascript'].includes(label)) {
-      return new tsWorker()
-      }
-      return new EditorWorker()
-    },
-  }
+  
 })
 </script>
 
