@@ -96,13 +96,24 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'dashboard',
+    path: '/dashboard',
+    component: 'layout.blank$view.dashboard',
+    props: true,
+    meta: {
+      title: 'dashboard',
+      i18nKey: 'route.dashboard',
+      hideInMenu: true
+    }
+  },
+  {
     name: 'function',
     path: '/function',
     component: 'layout.base',
     meta: {
       title: 'function',
       i18nKey: 'route.function',
-      icon: 'icon-park-outline:all-application',
+      icon: 'icon-park-outline:all-applicatiofn',
       order: 6
     },
     children: [
@@ -215,13 +226,14 @@ export const generatedRoutes: GeneratedRoute[] = [
   },
   {
     name: 'functions',
-    path: '/functions/:spaceid?',
+    path: '/app/:appid/functions/:functionid?',
     component: 'layout.base$view.functions',
     props: true,
     meta: {
       title: 'functions',
       i18nKey: 'route.functions',
-      multiTab: false
+      icon: 'mdi:function-variant',
+      keepAlive: true
     }
   },
   {

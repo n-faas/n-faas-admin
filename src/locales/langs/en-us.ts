@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'SoybeanAdmin',
+    title: 'Nginx Serverless',
     updateTitle: 'System Version Update Notification',
     updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
     updateConfirm: 'Refresh immediately',
@@ -227,6 +227,16 @@ const local: App.I18n.Schema = {
     plugin_tables_vtable: 'VTable'
   },
   page: {
+    dashboard: {
+      myApp: 'My App',
+      appName: 'app name',
+      appDesc: 'app description',
+      createApp: 'create new app',
+      enterApp: 'enter app',
+      appNamePlaceholder: 'Please enter app name',
+      appDescPlaceholder: 'Please enter app description',
+      searchAppPlaceholder: 'Please enter search content'
+    },
     login: {
       common: {
         loginOrRegister: 'Login / Register',

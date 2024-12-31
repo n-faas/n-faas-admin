@@ -4,7 +4,8 @@ import { useMessage } from 'naive-ui';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import Editor from './modules/editor.vue';
-import { setupEditor } from './modules/useContext.jsx';
+import { setupEditor } from './modules/useContext.js';
+import ResizablePanel from './modules/resizable-panel.vue';
 
 // interface Props {
 //   id?: string;
@@ -81,8 +82,9 @@ const handleUpdateValueTab = (value: string) => {
 </script>
 
 <template>
-  <div class="flex gap-4">
-    <NCard class="flex-[0_0_200px]" content-class="!p-0" header-class="">
+  <div class="flex gap-0.5">
+    <!--
+ <NCard class="flex-[0_0_200px]" content-class="!p-0" header-class="">
       <template #header>
         <span class="text-sm">函数列表</span>
       </template>
@@ -92,11 +94,6 @@ const handleUpdateValueTab = (value: string) => {
         </ButtonIcon>
       </template>
       <NMenu :options="menuOptions" :default-value="activeFunctionId" @update:value="handleUpdateValue" />
-      <!--
- <div v-for="item in menuOptions" :key="item.key" @click="() => handleUpdateValue(item.key)">
-        <div>{{ item.label }}</div>
-      </div>
--->
     </NCard>
     <NCard content-class="!p-0">
       <NTabs
@@ -117,6 +114,61 @@ const handleUpdateValueTab = (value: string) => {
         <Editor />
       </div>
     </NCard>
+    <NCard class="w-[300px]">
+      <NTabs>
+        <NTabPane name="调试"></NTabPane>
+        <NTabPane name="版本"></NTabPane>
+      </NTabs>
+    </NCard>
+-->
+    <ResizablePanel>
+      <template #left>
+        <NCard class="h-full" content-class="!p-0" header-class="">
+          <template #header>
+            <span class="text-sm">函数列表</span>
+          </template>
+          <template #header-extra>
+            <ButtonIcon tooltip-content="添加函数" class="h-[24px] w-[24px] p-0 text-sm">
+              <icon-ic:baseline-plus />
+            </ButtonIcon>
+          </template>
+          <NMenu :options="menuOptions" :default-value="activeFunctionId" @update:value="handleUpdateValue" />
+        </NCard>
+      </template>
+      <template #center>
+        <NCard content-class="!p-0" class="h-full">
+          <div v-if="tabList.length == 0" class="h-full flex items-center justify-center">
+            <!-- <NEmpty description="Hello" class="h-full" /> -->
+            Hello
+          </div>
+          <NTabs
+            :value="activeFunctionId"
+            type="card"
+            closable
+            tab-style="min-width: 80px;"
+            @update:value="handleUpdateValueTab"
+            @close="handleClose"
+          >
+            <NTabPane v-for="tab in tabList" :key="tab" :tab="tab" :name="tab">
+              <template #tab>
+                <component :is="getTabTitle(tab)" />
+              </template>
+            </NTabPane>
+          </NTabs>
+          <div v-show="activeFunctionId">
+            <Editor />
+          </div>
+        </NCard>
+      </template>
+      <template #right>
+        <NCard class="flex-1">
+          <NTabs>
+            <NTabPane name="调试"></NTabPane>
+            <NTabPane name="版本"></NTabPane>
+          </NTabs>
+        </NCard>
+      </template>
+    </ResizablePanel>
   </div>
 </template>
 

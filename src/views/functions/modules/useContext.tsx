@@ -110,14 +110,14 @@ export const { setupStore: setupEditor, useStore: useEditor } = useContext('edit
       const existingState = editorStates.value[functionId];
       if (existingState?.model && !existingState.model.isDisposed()) {
         if (existingState.model.isDisposed()) {
-          console.log('model存在 但无效', existingState.model);
+          // console.log('model存在 但无效', existingState.model);
         } else {
           // model 仍然有效，可以直接使用
-          console.log('model 仍然有效，可以直接使用', existingState.model);
+          // console.log('model 仍然有效，可以直接使用', existingState.model);
           editor.setModel(toRaw(existingState.model));
           editor.restoreViewState(toRaw(existingState.viewState));
-          console.log('model 仍然有效，可以直接使用 end', existingState.model);
-          editor.focus();
+          // console.log('model 仍然有效，可以直接使用 end', existingState.model);
+          // editor.focus();
         }
       } else {
         // 如果是新文件，创建新的model
@@ -139,7 +139,7 @@ export const { setupStore: setupEditor, useStore: useEditor } = useContext('edit
     if (!tabList.value.includes(functionId)) {
       tabList.value.push(functionId);
     }
-    console.log('editorStates.value', editorStates.value);
+    // console.log('editorStates.value', editorStates.value);
   };
 
   const closeFile = (functionId: string) => {
@@ -170,7 +170,7 @@ export const { setupStore: setupEditor, useStore: useEditor } = useContext('edit
   const getTabTitle = (tabName: string) => {
     const state = editorStates.value[tabName];
     const isModified = state?.isModified;
-    console.log('getTabTitle', tabName, state);
+    // console.log('getTabTitle', tabName, state);
     return (
       <div class="flex items-center gap-1">
         {tabName}

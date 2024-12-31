@@ -12,10 +12,10 @@ const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy
 
 export const request = createFlatRequest<App.Service.Response, RequestInstanceState>(
   {
-    baseURL,
-    headers: {
-      apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
-    }
+    baseURL
+    // headers: {
+    //   apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
+    // }
   },
   {
     async onRequest(config) {
@@ -27,11 +27,15 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     isBackendSuccess(response) {
       // when the backend response code is "0000"(default), it means the request is success
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
-      return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
+      // return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
+      debugger;
+      return String(response.status) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
     async onBackendFail(response, instance) {
       const authStore = useAuthStore();
-      const responseCode = String(response.data.code);
+      const responseCode = String(response.status);
+
+      debugger;
 
       function handleLogout() {
         authStore.resetStore();
@@ -92,10 +96,12 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       return null;
     },
     transformBackendResponse(response) {
-      return response.data.data;
+      // debugger;
+      return response.data;
     },
     onError(error) {
       // when the request is fail, you can show error message
+      debugger;
 
       let message = error.message;
       let backendErrorCode = '';

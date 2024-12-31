@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin } from '@/service/api';
+import { fetchGetUserInfo, fetchLogin, fetchLoginV1 } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -64,6 +64,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     startLoading();
 
     const { data: loginToken, error } = await fetchLogin(userName, password);
+    // const { data: loginToken, error } = await fetchLoginV1(userName, password);
+    debugger;
 
     if (!error) {
       const pass = await loginByToken(loginToken);
@@ -88,14 +90,14 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   async function loginByToken(loginToken: Api.Auth.LoginToken) {
     // 1. stored in the localStorage, the later requests need it in headers
-    localStg.set('token', loginToken.token);
-    localStg.set('refreshToken', loginToken.refreshToken);
+    localStg.set('token', loginToken.access_token);
+    localStg.set('refreshToken', loginToken.refresh_token);
 
     // 2. get user info
     const pass = await getUserInfo();
 
     if (pass) {
-      token.value = loginToken.token;
+      token.value = loginToken.access_token;
 
       return true;
     }
@@ -104,16 +106,17 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   async function getUserInfo() {
-    const { data: info, error } = await fetchGetUserInfo();
+    // const { data: info, error } = await fetchGetUserInfo();
 
-    if (!error) {
-      // update store
-      Object.assign(userInfo, info);
+    // if (!error) {
+    //   // update store
+    //   Object.assign(userInfo, info);
 
-      return true;
-    }
+    //   return true;
+    // }
 
-    return false;
+    // return false;
+    return true;
   }
 
   async function initUserInfo() {

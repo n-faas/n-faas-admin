@@ -6,6 +6,16 @@ import { request } from '../request';
  * @param userName User name
  * @param password Password
  */
+export function fetchLoginV1(userName: string, password: string) {
+  return request<Api.Auth.LoginToken>({
+    url: '/auth/login',
+    method: 'post',
+    data: {
+      userName,
+      password
+    }
+  });
+}
 export function fetchLogin(userName: string, password: string) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/login',
@@ -27,9 +37,18 @@ export function fetchGetUserInfo() {
  *
  * @param refreshToken Refresh token
  */
+// export function fetchRefreshToken(refreshToken: string) {
+//   return request<Api.Auth.LoginToken>({
+//     url: '/auth/refreshToken',
+//     method: 'post',
+//     data: {
+//       refreshToken
+//     }
+//   });
+// }
 export function fetchRefreshToken(refreshToken: string) {
   return request<Api.Auth.LoginToken>({
-    url: '/auth/refreshToken',
+    url: '/auth/refresh',
     method: 'post',
     data: {
       refreshToken

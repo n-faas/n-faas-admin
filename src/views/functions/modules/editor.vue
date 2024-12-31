@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as monaco from 'monaco-editor';
 import { onMounted } from 'vue';
-import { useEditor } from './useContext.jsx';
+import { useEditor } from './useContext.js';
 import './useWorker.ts';
 
 // const { value } = defineProps<{

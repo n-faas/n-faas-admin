@@ -12,8 +12,9 @@ export function getContentType(config: InternalAxiosRequestConfig) {
  * @param status
  */
 export function isHttpSuccess(status: number) {
+  debugger;
   const isSuccessCode = status >= 200 && status < 300;
-  return isSuccessCode || status === 304;
+  return isSuccessCode || status === 304 || status === 401;
 }
 
 /**

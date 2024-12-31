@@ -400,6 +400,16 @@ declare namespace App {
       };
       route: Record<I18nRouteKey, string>;
       page: {
+        dashboard: {
+          myApp: string;
+          appName: string;
+          appDesc: string;
+          createApp: string;
+          appNamePlaceholder: string;
+          appDescPlaceholder: string;
+          enterApp: string;
+          searchAppPlaceholder: string;
+        };
         login: {
           common: {
             loginOrRegister: string;

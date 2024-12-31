@@ -54,8 +54,12 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey(key, { query });
   }
 
-  async function toHome() {
-    return routerPushByKey('root');
+  // async function toHome() {
+  //   return routerPushByKey('root');
+  // }
+
+  async function toDashboard() {
+    return routerPushByKey('dashboard');
   }
 
   /**
@@ -104,7 +108,8 @@ export function useRouterPush(inSetup = true) {
     if (needRedirect && redirect) {
       routerPush(redirect);
     } else {
-      toHome();
+      // toHome();
+      toDashboard();
     }
   }
 

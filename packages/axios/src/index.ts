@@ -29,6 +29,7 @@ function createCommonRequest<ResponseData = any>(
   axiosRetry(instance, retryOptions);
 
   instance.interceptors.request.use(conf => {
+    debugger;
     const config: InternalAxiosRequestConfig = { ...conf };
 
     // set request id
@@ -45,17 +46,20 @@ function createCommonRequest<ResponseData = any>(
     // handle config by hook
     const handledConfig = opts.onRequest?.(config) || config;
 
+    debugger;
     return handledConfig;
   });
 
   instance.interceptors.response.use(
     async response => {
+      debugger;
       const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
 
       if (responseType !== 'json' || opts.isBackendSuccess(response)) {
         return Promise.resolve(response);
       }
 
+      console.log('1233321123');
       const fail = await opts.onBackendFail(response, instance);
       if (fail) {
         return fail;
@@ -74,6 +78,7 @@ function createCommonRequest<ResponseData = any>(
       return Promise.reject(backendError);
     },
     async (error: AxiosError<ResponseData>) => {
+      debugger;
       await opts.onError(error);
 
       return Promise.reject(error);
@@ -155,8 +160,9 @@ export function createFlatRequest<ResponseData = any, State = Record<string, unk
     R extends ResponseType = 'json'
   >(config: CustomAxiosRequestConfig) {
     try {
+      debugger;
       const response: AxiosResponse<ResponseData> = await instance(config);
-
+      debugger;
       const responseType = response.config?.responseType || 'json';
 
       if (responseType === 'json') {

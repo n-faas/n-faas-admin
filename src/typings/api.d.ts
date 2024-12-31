@@ -55,8 +55,19 @@ declare namespace Api {
    */
   namespace Auth {
     interface LoginToken {
-      token: string;
-      refreshToken: string;
+      // token: string;
+      // refreshToken: string;
+      access_token: string;
+      refresh_token: string;
+      expires_in: number;
+      token_type: string;
+      user: {
+        id: number;
+        username: string;
+        email: string;
+        created_at: string;
+        updated_at: string;
+      };
     }
 
     interface UserInfo {
@@ -220,6 +231,53 @@ declare namespace Api {
       label: string;
       pId: number;
       children?: MenuTree[];
+    };
+  }
+  namespace Applications {
+    type Model = {
+      id: string;
+      name: string;
+      description: string;
+      created_by: number;
+      is_active: boolean;
+      functions: null;
+      created_at: string;
+      updated_at: string;
+    };
+    type GetApplicationsParams = {
+      page: number;
+      pageSize: number;
+    };
+    type GetApplicationsResponse = {
+      total: number;
+      total_pages: number;
+      current_page: number;
+      page_size: number;
+      data: Model[];
+    };
+    type CreateApplicationRequest = {
+      name: string;
+      description: string;
+    };
+    type CreateApplicationResponse = {
+      id: string;
+      name: string;
+      description: string;
+      created_by: number;
+      is_active: boolean;
+      functions: null;
+      created_at: string;
+      updated_at: string;
+    };
+    type UpdateApplicationRequest = {
+      id: string;
+      name: string;
+      description: string;
+    };
+    type UpdateApplicationResponse = {
+      id: string;
+      name: string;
+      description: string;
     };
   }
 }
